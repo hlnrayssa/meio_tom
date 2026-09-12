@@ -1,0 +1,60 @@
+# .gitattributes para o projeto Meio-Tom (Unity)
+# Configura o Git LFS para os assets binários do jogo, evitando que
+# imagens, áudio, vídeo, fontes e modelos 3D inchem o histórico do repositório.
+#
+# Antes de commitar algo que bata com estas regras, rode uma vez (por máquina):
+#   git lfs install
+
+# ---------- Imagens / Texturas ----------
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.tga filter=lfs diff=lfs merge=lfs -text
+*.tif filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.hdr filter=lfs diff=lfs merge=lfs -text
+
+# ---------- Áudio ----------
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.aiff filter=lfs diff=lfs merge=lfs -text
+*.aif filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+
+# ---------- Vídeo ----------
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.webm filter=lfs diff=lfs merge=lfs -text
+*.avi filter=lfs diff=lfs merge=lfs -text
+
+# ---------- Fontes ----------
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+
+# ---------- Modelos 3D / assets de arte ----------
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.obj filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.dae filter=lfs diff=lfs merge=lfs -text
+*.3ds filter=lfs diff=lfs merge=lfs -text
+*.max filter=lfs diff=lfs merge=lfs -text
+*.ai filter=lfs diff=lfs merge=lfs -text
+
+# ---------- Pacotes e builds ----------
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+*.apk filter=lfs diff=lfs merge=lfs -text
+*.aab filter=lfs diff=lfs merge=lfs -text
+
+# ---------- Documentos pesados (opcional) ----------
+*.pdf filter=lfs diff=lfs merge=lfs -text
+
+# Observação:
+# Cenas (.unity), prefabs (.prefab), materiais (.mat) e assets (.asset) do Unity
+# normalmente ficam como texto (YAML) quando o projeto usa serialização forçada
+# em texto (Edit > Project Settings > Editor > Asset Serialization > Force Text,
+# que já é o padrão em projetos novos). Por isso NÃO foram incluídos aqui:
+# versioná-los como texto normal permite ver diffs e é o comportamento recomendado.
