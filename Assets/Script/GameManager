@@ -1,0 +1,93 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    #region Singleton
+    public static GameManager instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion
+
+    public Transform player;        // arraste o Player aqui
+    public Vector3 posicaoInicial;  // onde o player nasce quando não há save
+
+    public int pontos;
+    public int itensColetados;
+    public float tempo;             // tempo acumulado de todas as partidas
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        CarregarJogo();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        tempo += Time.deltaTime;
+    }
+
+    public void ColetarItem(int valor)
+    {
+        pontos += valor;
+        itensColetados++;
+        Debug.Log("Pontos: " + pontos);
+    }
+
+    public void SalvarJogo(Vector3 posicaoSalvamento)
+    {
+        // pontuação negativa: em vez de salvar, zera o save
+        if (pontos < 0)
+        {
+            ApagarDados();
+            Debug.Log("Pontuação negativa! Save apagado.");
+            return;
+        }
+
+        PlayerPrefs.SetInt("Pontos", pontos);
+        PlayerPrefs.SetInt("Itens", itensColetados);
+        PlayerPrefs.SetFloat("Tempo", tempo);
+        PlayerPrefs.SetFloat("PosX", posicaoSalvamento.x);
+        PlayerPrefs.SetFloat("PosY", posicaoSalvamento.y);
+        PlayerPrefs.SetFloat("PosZ", posicaoSalvamento.z);
+        PlayerPrefs.SetInt("TemSave", 1);
+        Debug.Log("Jogo salvo!");
+    }
+
+    public void CarregarJogo()
+    {
+        if (PlayerPrefs.GetInt("TemSave", 0) == 0)
+        {
+            // sem save: começa do zero
+            player.position = posicaoInicial;
+            return;
+        }
+
+        pontos = PlayerPrefs.GetInt("Pontos");
+        itensColetados = PlayerPrefs.GetInt("Itens");
+        tempo = PlayerPrefs.GetFloat("Tempo");
+
+        float x = PlayerPrefs.GetFloat("PosX");
+        float y = PlayerPrefs.GetFloat("PosY");
+        float z = PlayerPrefs.GetFloat("PosZ");
+        player.position = new Vector3(x, y, z);
+    }
+
+    public void ApagarDados()
+    {
+        PlayerPrefs.DeleteAll();
+        Debug.Log("Dados apagados!");
+    }
+}
