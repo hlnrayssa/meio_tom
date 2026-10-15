@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class UIJogo : MonoBehaviour
+{
+    public TMP_Text textoPontos;   // arraste o texto de pontos aqui
+    public TMP_Text textoItens;    // arraste o texto de itens aqui
+    public TMP_Text textoTempo;    // arraste o texto de tempo aqui
+
+    // Update is called once per frame
+    void Update()
+    {
+        textoPontos.text = "Pontos: " + GameManager.instance.pontos;
+        textoItens.text = "Itens: " + GameManager.instance.itensColetados;
+        textoTempo.text = "Tempo: " + Mathf.FloorToInt(GameManager.instance.tempo) + "s";
+    }
+}
