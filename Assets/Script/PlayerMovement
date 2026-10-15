@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    Rigidbody rb;
+    public float velocidade = 5F;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        // não rotaciona e não cai por efeito da física
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Moves();
+    }
+
+    void Moves()
+    {
+        float velX, velZ;
+        velX = Input.GetAxis("Horizontal");
+        velZ = Input.GetAxis("Vertical");
+
+        rb.velocity = new Vector3(velX, 0, velZ) * velocidade;
+    }
+}
